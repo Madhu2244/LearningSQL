@@ -1,11 +1,14 @@
+/* I create a Student Table with a Student ID, Student Name, Student Phone Number, and Student Street Address and Class id (Which is going to be connected to the Class Table)*/
 CREATE TABLE STUDENT (student_id INTEGER, student_name  varchar(30), student_phone varchar(15), student_address varchar(50), class_id INTEGER,
 PRIMARY KEY (student_id)
 );
-
+/* I create a Professor Table with a Professor ID, Professor Name, and Professor Phone Number*/
 CREATE TABLE PROFESSOR (professor_id INTEGER PRIMARY KEY, professor_name varchar(30), professor_phone varchar(15));
-
+/* I creat a Class Table with a Class ID, CLass Name, and Professor ID (Which is going to be connected to the Professor Table)*/
 CREATE TABLE CLASS (class_id INTEGER PRIMARY KEY, class_name varchar(30), professor_id INTEGER);
 
+/* Here I create my connections*/
+                                                                                                              
 ALTER TABLE CLASS 
 ADD FOREIGN KEY (professor_id) references PROFESSOR(professor_id);
 
@@ -34,6 +37,7 @@ SELECT * FROM CLASS;
 
 SELECT * FROM STUDENT as s, CLASS as c, PROFESSOR as p where c.professor_id=p.professor_id and c.class_id = s.class_id;
 
+/* Optional */
 drop table PROFESSOR;
 drop table STUDENT;
 drop table CLASS;
