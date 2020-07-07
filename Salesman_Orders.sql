@@ -1,0 +1,56 @@
+/*************************CREATING TABLES********************************/
+DROP TABLE SALESMAN;
+CREATE TABLE SALESMAN (
+    salesman_id INTEGER AUTO_INCREMENT,
+    name VARCHAR(35),
+    city VARCHAR(15),
+    comission FLOAT,
+    PRIMARY KEY (salesman_id)
+);
+
+DROP TABLE ORDERS;
+CREATE TABLE ORDERS (
+	ord_no INTEGER AUTO_INCREMENT,
+    purch_amt FLOAT,
+    ord_date VARCHAR(15),
+    customer_id INTEGER,
+    salesman_id INTEGER,
+    PRIMARY KEY (ord_no)
+);
+
+/******************************Adding foreign key************/
+ALTER TABLE ORDERS
+ADD FOREIGN KEY (salesman_id) references SALESMAN(salesman_id);
+
+/***************************ADDING DATA*************************/
+INSERT INTO SALESMAN VALUE (5001, "James Hoog", "New York", 0.15);
+INSERT INTO SALESMAN VALUE (5002, "Nail Knite", "Paris", 0.13);
+INSERT INTO SALESMAN VALUE (5005, "Pit Alex", "London", 0.11);
+INSERT INTO SALESMAN VALUE (5006, "Mc Lyon", "Paris", 0.14);
+INSERT INTO SALESMAN VALUE (5003, "Lauson Hen", "San Jose", 0.12);
+INSERT INTO SALESMAN VALUE (5007, "Paul Adam", "Rome", 0.13);
+
+INSERT INTO ORDERS VALUE (70001, 150.5, "2012-10-05", 3005, 5002);
+INSERT INTO ORDERS VALUE (70009, 270.65, "2012-09-10", 3001, 5005);
+INSERT INTO ORDERS VALUE (70002, 65.26, "2012-10-05", 3002, 5001);
+INSERT INTO ORDERS VALUE (70004, 110.5, "2012-08-17", 3009, 5003);
+INSERT INTO ORDERS VALUE (70007, 948.5, "2012-09-10", 3005, 5002);
+INSERT INTO ORDERS VALUE (70005, 2400.6, "2012-07-27", 3007, 5001);
+INSERT INTO ORDERS VALUE (70008, 5760, "2012-09-10", 3002, 5001);
+INSERT INTO ORDERS VALUE (70010, 1983.43, "2012-10-10", 3004, 5006);
+INSERT INTO ORDERS VALUE (70003, 2480.4, "2012-10-10", 3009, 5003);
+INSERT INTO ORDERS VALUE (70012, 250.45, "2012-06-27", 3008, 5002);
+INSERT INTO ORDERS VALUE (70011, 75.29, "2012-08-17", 3003, 5007);
+INSERT INTO ORDERS VALUE (70013, 3045.6, "2012-04-25", 3002, 5001);
+
+
+
+/********* DISPLAYING DATA *************/
+SELECT * FROM SALESMAN;
+SELECT * FROM ORDERS;
+SELECT MAX(comission) FROM SALESMAN;
+SELECT o.salesman_id,count(salesman_id) AS count FROM ORDERS AS o GROUP BY salesman_id;
+SELECT MAX(d.count),salesman_id FROM (SELECT o.salesman_id,count(salesman_id) AS count FROM ORDERS AS o GROUP BY salesman_id) as d;
+SELECT * FROM ORDERS WHERE salesman_id = 5005;
+SELECT salesman_id FROM SALESMAN WHERE city = "London";
+SELECT * FROM ORDERS WHERE salesman_id = (SELECT salesman_id FROM SALESMAN WHERE city = "London");
