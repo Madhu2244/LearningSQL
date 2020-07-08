@@ -172,6 +172,7 @@ SElECT * FROM EMPLOYEE WHERE employee_id >= 14;
 
 SELECT count(employee_id) from employee group by project_id;
 select project_id,count(employee_id) from employee group by project_id;
+select department_id,count(employee_id) from employee group by department_id;
 select department_id,count(employee_id) from employee group by department_id order by count(employee_id);
 select department_id from department;
 
@@ -207,6 +208,18 @@ SELECT * FROM EMPLOYEE WHERE employee_name IS NULL;
 SELECT employee_name from EMPLOYEE where exists(SELECT * FROM EMPLOYEE WHERE employee_id > 20);
 
 SELECT * FROM EMPLOYEE;
+-- update
+update employee set employee_name = "asdf" where department_id = 23;
+
+-- delete
+delete from employee where employee_id = null;
+
+SELECT * FROM EMPLOYEE LIMIT 3;
+
+SELECT * FROM EMPLOYEE ORDER BY (department_id) DESC LIMIT 3;
+
+SELECT * FROM EMPLOYEE ORDER BY (employee_id) LIMIT 3;
+
 
 drop table EMPLOYEE;
 drop table DEPARTMENT;
