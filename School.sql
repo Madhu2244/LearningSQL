@@ -1,0 +1,100 @@
+DROP TABLE STUDENT;
+CREATE TABLE STUDENT (
+    student_id INTEGER,
+    student_name VARCHAR(30),
+    address_id INTEGER,
+    student_birthday VARCHAR(12),
+    student_age INTEGER,
+    PRIMARY KEY (student_id)
+);
+
+DROP TABLE ADDRESS;
+CREATE TABLE ADDRESS (
+	address_id INTEGER,
+	street_address VARCHAR(30),
+	address_city VARCHAR(15),
+    address_state VARCHAR(20),
+    address_pin INTEGER,
+    PRIMARY KEY (address_id)
+);
+
+DROP TABLE SUBJECT;
+CREATE TABLE SUBJECT (
+    subject_id INTEGER,
+	subject_name VARCHAR(30),
+    student_id INTEGER,
+    PRIMARY KEY (subject_id, student_id)
+);
+
+DROP TABLE CLASS;
+CREATE TABLE CLASS (
+	class_id INTEGER,
+    class_name VARCHAR(15),
+    subject_id INTEGER,
+    student_id INTEGER,
+    PRIMARY KEY (class_id, student_id, subject_id)
+);
+
+DROP TABLE SECTION;
+CREATE TABLE SECTION (
+	section_id INTEGER,
+	section_name VARCHAR(20),
+    class_id INTEGER,
+    PRIMARY KEY (section_id, class_id)
+);
+
+ALTER TABLE STUDENT
+ADD FOREIGN KEY (address_id) REFERENCES ADDRESS (address_id);
+
+ALTER TABLE SUBJECT
+ADD FOREIGN KEY (student_id) REFERENCES STUDENT (student_id);
+
+ALTER TABLE CLASS
+ADD FOREIGN KEY (student_id) REFERENCES STUDENT (student_id);
+
+ALTER TABLE CLASS
+ADD FOREIGN KEY (subject_id) REFERENCES SUBJECT (subject_id);
+
+ALTER TABLE SECTION
+ADD FOREIGN KEY (class_id) REFERENCES CLASS (class_id);
+
+INSERT INTO STUDENT VALUES(1, "Madhusudhan Sharma",1, "07-04-2003", 17);
+INSERT INTO STUDENT VALUES(2, "William Zheng",2, "02-06-2003", 17);
+INSERT INTO STUDENT VALUES(3, "Jake Roberts",4, "03-04-2000", 20);
+INSERT INTO STUDENT VALUES(4, "Reza Blake",3, "01-04-2003", 17);
+INSERT INTO STUDENT VALUES(5, "William Blake",3, "07-04-2005", 15);
+
+INSERT INTO ADDRESS VALUES(1, "1234 Fast Road", "Plano", "Texas", 75025); 
+INSERT INTO ADDRESS VALUES(2, "4321 Slow Road", "Dallas", "Texas", 75023); 
+INSERT INTO ADDRESS VALUES(3, "1234 Forest Road", "Frisco", "Texas", 75021); 
+INSERT INTO ADDRESS VALUES(4, "1234 Tree Road", "Plano", "Texas", 75024); 
+
+INSERT INTO SUBJECT VALUES(1, "Math", 1);
+INSERT INTO SUBJECT VALUES(1, "Math", 2);
+INSERT INTO SUBJECT VALUES(1, "Math", 3);
+INSERT INTO SUBJECT VALUES(2, "English", 1);
+INSERT INTO SUBJECT VALUES(2, "English", 4);
+INSERT INTO SUBJECT VALUES(2, "English", 5);
+INSERT INTO SUBJECT VALUES(3, "Science", 2);
+
+INSERT INTO CLASS VALUES(1, "Math 101", 1, 1);
+INSERT INTO CLASS VALUES(1, "Math 101", 1, 2);
+INSERT INTO CLASS VALUES(2, "Math 102", 1, 3);
+INSERT INTO CLASS VALUES(3, "English 101", 2, 1);
+INSERT INTO CLASS VALUES(4, "English 102", 2, 4);
+INSERT INTO CLASS VALUES(5, "English 103", 2, 5);
+INSERT INTO CLASS VALUES(6, "Science 101", 1, 2);
+
+INSERT INTO SECTION VALUES(1, "Math 101 Break", 1);
+INSERT INTO SECTION VALUES(2, "Math 101 Study Time", 1);
+INSERT INTO SECTION VALUES(3, "Math 102 Play Time", 2);
+INSERT INTO SECTION VALUES(4, "English 101 Study", 3);
+INSERT INTO SECTION VALUES(5, "English 102 Break", 4);
+INSERT INTO SECTION VALUES(6, "English 103 Break", 5);
+INSERT INTO SECTION VALUES(7, "Science 101 Cram", 6);
+
+SELECT * FROM STUDENT;
+SELECT * FROM ADDRESS;
+SELECT * FROM SUBJECT;
+SELECT * FROM CLASS;
+SELECT * FROM SECTION;
